@@ -1,0 +1,199 @@
+/* ============================================================
+   COMBATE AO BULLYING — camada final de layout
+   Cabeçalho limpo, tela inicial enxuta e figurinhas VERTICAIS (2:3)
+   que ocupam todo o card depois de coladas.
+   Carregado depois de style.css; usa seletores fortes para vencer
+   as camadas antigas.
+   ============================================================ */
+:root{
+  --cb-azul:#1e3a8a; --cb-ouro:#facc15; --cb-ouro2:#fde68a; --cb-fundo:#07111f;
+  --cb-card-r:16px; --cb-prop:768/1376;
+}
+
+/* ---------------- CABEÇALHO ---------------- */
+html body header.topo.cb-topo{
+  position:sticky!important; top:0!important; z-index:50!important;
+  display:grid!important; grid-template-columns:auto 1fr auto!important; grid-template-areas:"brand status principal"!important;
+  align-items:center!important; gap:10px 16px!important;
+  min-height:0!important; height:auto!important; padding:10px 18px!important;
+  background:rgba(2,6,23,.96)!important; backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(250,204,21,.25)!important; box-shadow:0 6px 20px rgba(0,0,0,.35)!important;
+}
+html body header.cb-topo .brand{grid-area:brand; cursor:pointer; min-width:0; text-align:left!important}
+html body header.cb-topo .brand h1{font-size:1.15rem!important; line-height:1.05!important; margin:3px 0 1px!important; white-space:nowrap}
+html body header.cb-topo .brand p{font-size:.72rem!important; margin:0!important; opacity:.8; white-space:nowrap}
+html body header.cb-topo .brand .selo{font-size:.6rem!important; padding:2px 8px!important}
+
+html body header.cb-topo .cb-status{grid-area:status; display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+html body header.cb-topo .cb-chip{
+  display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:999px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(250,204,21,.3); color:#e2e8f0; font-size:.75rem; white-space:nowrap
+}
+html body header.cb-topo .cb-chip b{color:var(--cb-ouro)}
+
+html body header.cb-topo .cb-principal{grid-area:principal; display:flex; gap:6px; align-items:center}
+html body header.cb-topo .cb-principal button{
+  display:inline-flex!important; align-items:center!important; gap:6px!important;
+  width:auto!important; min-width:0!important; min-height:40px!important; height:40px!important; margin:0!important;
+  padding:0 14px!important; border-radius:999px!important; font-size:.85rem!important; font-weight:800!important;
+  background:rgba(255,255,255,.08)!important; color:#f8fafc!important; border:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:none!important; white-space:nowrap!important; transform:none!important;
+}
+html body header.cb-topo .cb-principal button:hover{background:rgba(250,204,21,.18)!important}
+html body header.cb-topo .cb-principal button.cb-destaque{background:linear-gradient(180deg,var(--cb-ouro2),var(--cb-ouro))!important; color:#111827!important; border-color:transparent!important}
+html body header.cb-topo .cb-ico{font-size:1rem; line-height:1}
+
+/* menu "Mais" (é o <nav> onde os outros scripts acrescentam botões) */
+html body header.cb-topo nav.cb-menu{
+  display:none!important; position:absolute!important; top:calc(100% + 6px)!important; right:14px!important; left:auto!important;
+  width:240px!important; max-width:calc(100vw - 28px)!important; padding:8px!important; margin:0!important;
+  flex-direction:column!important; gap:4px!important; grid-template-columns:none!important;
+  background:#0f172a!important; border:1px solid rgba(250,204,21,.35)!important; border-radius:16px!important;
+  box-shadow:0 18px 40px rgba(0,0,0,.5)!important; z-index:60!important;
+}
+html body header.cb-topo nav.cb-menu.aberto{display:flex!important}
+html body header.cb-topo nav.cb-menu button{
+  display:block!important; width:100%!important; min-height:42px!important; height:auto!important; margin:0!important;
+  padding:10px 12px!important; text-align:left!important; border-radius:10px!important;
+  background:transparent!important; color:#f1f5f9!important; border:0!important; box-shadow:none!important;
+  font-size:.9rem!important; font-weight:700!important; transform:none!important;
+}
+html body header.cb-topo nav.cb-menu button:hover{background:rgba(250,204,21,.14)!important}
+html body header.cb-topo nav.cb-menu button.cb-perigo{color:#fca5a5!important; border-top:1px solid rgba(255,255,255,.08)!important; border-radius:0 0 10px 10px!important; margin-top:4px!important}
+html body header.cb-topo nav.cb-menu .nav-status{display:none!important}
+
+/* ---------------- TELA INICIAL ---------------- */
+#tela-projeto .cb-hero{
+  display:grid!important; grid-template-columns:140px 1fr!important; gap:24px!important; align-items:center!important;
+  max-width:980px; margin:22px auto 0!important; padding:24px!important;
+}
+#tela-projeto .cb-hero .logo-box{width:140px!important; height:140px!important; margin:0!important}
+#tela-projeto .cb-hero .logo-box img{width:100%!important; height:100%!important; object-fit:contain!important}
+#tela-projeto .cb-hero h2{font-size:clamp(1.35rem,2.4vw,1.9rem)!important; margin:0 0 6px!important; line-height:1.15!important}
+#tela-projeto .cb-hero p{margin:0 0 14px!important; font-size:1rem!important; opacity:.92}
+#tela-projeto .cb-hero .dx13-journey,#tela-projeto .cb-hero .creditos,#tela-projeto #dxCreditosV23{display:none!important}
+.cb-progresso{margin:0 0 16px}
+.cb-progresso-barra{height:12px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden}
+.cb-progresso-barra span{display:block; height:100%; width:0; background:linear-gradient(90deg,#22c55e,var(--cb-ouro)); border-radius:999px; transition:width .5s}
+.cb-progresso small{display:block; margin-top:6px; color:#cbd5e1; font-size:.82rem}
+.cb-cta{display:flex; gap:10px; flex-wrap:wrap}
+.cb-cta button{min-height:48px!important; padding:0 22px!important; border-radius:999px!important; font-size:1rem!important; font-weight:900!important; width:auto!important; margin:0!important}
+.cb-cta .cb-btn-principal{background:linear-gradient(180deg,var(--cb-ouro2),var(--cb-ouro))!important; color:#111827!important; border:0!important}
+.cb-cta .cb-btn-secundario{background:transparent!important; color:#f8fafc!important; border:2px solid rgba(250,204,21,.6)!important}
+
+.cb-secao{max-width:980px; margin:26px auto 10px!important; padding:0 6px; color:#e2e8f0; font-size:1rem!important; text-transform:uppercase; letter-spacing:.06em}
+.cb-atalhos{max-width:980px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.cb-atalhos button{
+  display:flex!important; flex-direction:column!important; align-items:flex-start!important; gap:4px!important;
+  width:100%!important; min-height:0!important; height:auto!important; margin:0!important; padding:16px!important; text-align:left!important;
+  border-radius:16px!important; background:rgba(255,255,255,.06)!important; border:1px solid rgba(255,255,255,.12)!important; color:#f8fafc!important; box-shadow:none!important;
+}
+.cb-atalhos button:hover{border-color:rgba(250,204,21,.6)!important}
+.cb-atalhos span{font-size:1.6rem}
+.cb-atalhos b{font-size:1rem}
+.cb-atalhos small{color:#cbd5e1; font-weight:500}
+.cb-creditos-rodape{max-width:980px; margin:24px auto 8px!important; text-align:center; font-size:.78rem!important; color:#94a3b8!important; background:none!important; border:0!important}
+
+/* ---------------- FIGURINHAS VERTICAIS ---------------- */
+#albumPages .pagina{max-width:1000px; margin:0 auto}
+#albumPages .cb-grid{
+  display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:clamp(10px,2.2vw,26px)!important;
+  max-width:860px; margin:16px auto 0!important; padding:0!important; align-items:start!important;
+}
+.cb-card{display:flex; flex-direction:column; gap:8px; min-width:0}
+.cb-card-moldura{
+  position:relative; width:100%; aspect-ratio:var(--cb-prop); overflow:hidden; border-radius:var(--cb-card-r);
+  background:#0b1324; box-shadow:0 10px 24px rgba(0,0,0,.4);
+}
+.cb-card-moldura img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+.cb-colada .cb-card-moldura{cursor:pointer; outline:3px solid rgba(255,255,255,.9); outline-offset:-3px}
+.cb-colada.cb-especial .cb-card-moldura{outline-color:#c4b5fd}
+.cb-colada.cb-rara .cb-card-moldura{outline-color:var(--cb-ouro); box-shadow:0 0 0 2px rgba(250,204,21,.35),0 12px 28px rgba(250,204,21,.18)}
+.cb-colada .cb-card-moldura:hover img{transform:scale(1.03)}
+.cb-card-moldura img{transition:transform .3s}
+
+/* disponível para colar */
+.cb-disponivel .cb-card-moldura{outline:3px dashed var(--cb-ouro); outline-offset:-3px}
+.cb-disponivel .cb-card-moldura img{filter:saturate(.75) brightness(.8)}
+.cb-nova{position:absolute; top:10px; left:10px; padding:3px 10px; border-radius:999px; background:var(--cb-ouro); color:#111827; font-weight:900; font-size:.72rem; letter-spacing:.05em}
+
+/* bloqueada */
+.cb-bloqueada .cb-card-moldura{background:repeating-linear-gradient(135deg,#1e293b 0 14px,#172033 14px 28px); border:2px dashed rgba(148,163,184,.45)}
+.cb-vazio{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:12px; text-align:center}
+.cb-vazio-num{font-size:clamp(2rem,6vw,3.4rem); font-weight:900; color:rgba(250,204,21,.85); line-height:1}
+.cb-vazio-tit{font-size:clamp(.68rem,1.6vw,.9rem); color:#cbd5e1; font-weight:700; line-height:1.25}
+
+/* botão embaixo do card */
+.cb-card .cb-card-btn{
+  display:flex!important; align-items:center!important; justify-content:center!important; gap:6px!important;
+  width:100%!important; min-height:42px!important; height:auto!important; margin:0!important; padding:8px 10px!important;
+  border-radius:12px!important; font-weight:900!important; font-size:clamp(.72rem,1.6vw,.9rem)!important; box-shadow:none!important; transform:none!important;
+}
+.cb-card .cb-info{background:linear-gradient(180deg,var(--cb-ouro2),var(--cb-ouro))!important; color:#111827!important; border:0!important}
+.cb-card .cb-colar{background:#22c55e!important; color:#052e16!important; border:0!important}
+.cb-card .cb-card-btn[disabled]{background:rgba(255,255,255,.06)!important; color:#94a3b8!important; border:1px solid rgba(255,255,255,.1)!important; cursor:default}
+
+/* ---------------- PACOTE ---------------- */
+.pacote-grid.cb-pacote-grid{display:grid!important; grid-template-columns:repeat(5,minmax(0,1fr))!important; gap:14px!important}
+.cb-pacote-grid .pacote-card{display:flex!important; flex-direction:column!important; padding:0!important; overflow:hidden!important; border-radius:16px!important; min-height:0!important; height:auto!important}
+.cb-pacote-grid .pacote-card-img{position:relative!important; width:100%!important; aspect-ratio:var(--cb-prop)!important; height:auto!important; padding:0!important; margin:0!important; overflow:hidden!important; flex:none!important}
+.cb-pacote-grid .pacote-card-img img{position:absolute!important; inset:0!important; width:100%!important; height:100%!important; object-fit:cover!important; max-height:none!important; border:0!important}
+.cb-pacote-grid .pacote-card-info{padding:8px!important}
+
+/* ---------------- FICHA ---------------- */
+.ficha-detalhada .ficha-midia{display:flex!important; align-items:center!important; justify-content:center!important}
+.ficha-detalhada .ficha-img-grande,
+.ficha-detalhada .ficha-midia img{width:auto!important; height:auto!important; max-width:100%!important; max-height:72vh!important; aspect-ratio:var(--cb-prop)!important; object-fit:cover!important; border-radius:16px!important}
+
+/* ---------------- CELULAR ---------------- */
+@media (max-width:860px){
+  html body header.topo.cb-topo{grid-template-columns:1fr auto!important; grid-template-areas:"brand status" "principal principal"!important; padding:8px 10px!important}
+  html body header.cb-topo .brand p{display:none}
+  html body header.cb-topo .cb-status{justify-content:flex-end; gap:4px}
+  html body header.cb-topo .cb-chip{padding:3px 8px; font-size:.68rem}
+  html body header.cb-topo .cb-principal{display:grid; grid-template-columns:repeat(5,1fr); gap:4px}
+  html body header.cb-topo .cb-principal button{flex-direction:column!important; justify-content:center!important; gap:2px!important; height:52px!important; min-height:52px!important; padding:4px 2px!important; border-radius:12px!important; font-size:.66rem!important}
+  html body header.cb-topo .cb-ico{font-size:1.15rem}
+  #tela-projeto .cb-hero{grid-template-columns:1fr!important; text-align:center; padding:18px!important; gap:12px!important; margin-top:12px!important}
+  #tela-projeto .cb-hero .logo-box{width:96px!important; height:96px!important; margin:0 auto!important}
+  .cb-cta{justify-content:center}
+  .cb-cta button{flex:1 1 100%}
+  .cb-atalhos{grid-template-columns:repeat(2,1fr); padding:0 4px}
+  .pacote-grid.cb-pacote-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:8px!important}
+}
+@media (max-width:520px){
+  html body header.cb-topo .cb-status{flex-direction:column; align-items:flex-end}
+  #albumPages .cb-grid{gap:8px!important}
+  .cb-card .cb-info span{display:none}
+  .cb-card .cb-info::after{content:"Info"}
+  .cb-card .cb-card-btn{min-height:38px!important; font-size:.7rem!important; padding:6px 4px!important; border-radius:10px!important}
+  .cb-nova{top:6px; left:6px; font-size:.6rem; padding:2px 6px}
+  .pacote-grid.cb-pacote-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* ---------------- correções de camadas antigas ---------------- */
+html body main .tela:not(.ativa){display:none!important}
+html body .rodape-status{display:none!important}
+html body #albumPages .pagina.pagina-tres{
+  display:block!important; height:auto!important; min-height:0!important; max-height:none!important; overflow:visible!important;
+  width:100%!important; padding:18px 18px 24px!important;
+}
+html body #albumPages .pagina.pagina-tres .texto-pagina{max-width:860px; margin:0 auto!important}
+html body #albumPages .cb-grid{width:100%!important; height:auto!important}
+html body #albumPages .cb-card{width:100%!important; height:auto!important; max-width:280px; justify-self:center}
+html body main{padding-bottom:24px!important}
+html body header.cb-topo nav.cb-menu button.cb-perigo{order:99!important}
+html body header.cb-topo nav.cb-menu #dx13Instalar{order:98!important}
+@media (max-width:520px){
+  html body #tela-album{padding-left:6px!important; padding-right:6px!important}
+  html body #albumPages .pagina.pagina-tres{padding:12px 8px 16px!important; border-radius:16px!important}
+  html body #albumPages .pagina.pagina-tres .texto-pagina{font-size:.8rem!important}
+}
+html body main section#tela-album.tela:not(.ativa),
+html body main section#tela-projeto.tela:not(.ativa),
+html body main section#tela-simulados.tela:not(.ativa){display:none!important}
+/* a arte final já traz moldura e número: sem contorno extra quando colada */
+html body .cb-colada .cb-card-moldura{outline:none!important; background:transparent!important}
+html body .cb-colada.cb-rara .cb-card-moldura{box-shadow:0 0 22px rgba(250,204,21,.35),0 12px 28px rgba(0,0,0,.45)!important}
+html body .cb-colada.cb-especial .cb-card-moldura{box-shadow:0 0 18px rgba(196,181,253,.35),0 12px 28px rgba(0,0,0,.45)!important}
+html body #albumPages .pagina .texto-pagina{display:block!important; -webkit-line-clamp:unset!important; line-clamp:unset!important; max-height:none!important; height:auto!important; overflow:visible!important; text-overflow:clip!important; white-space:normal!important}

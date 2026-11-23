@@ -1,0 +1,2 @@
+O game usa as 36 figurinhas do álbum (pasta figurinhas/ na raiz do projeto).
+Não é preciso colocar arquivos aqui. Para mudar, edite figurinhas-config.js.

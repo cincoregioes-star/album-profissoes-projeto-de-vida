@@ -1,0 +1,89 @@
+name: Build APK — Álbum Projeto de Vida
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "android-wrapper/**"
+      - "index.html"
+      - "style.css"
+      - "layout-cb.css"
+      - "tema-cb.css"
+      - "script.js"
+      - "supabase-config.js"
+      - "album-data.js"
+      - "jornada-cb.js"
+      - "simulados-v13.js"
+      - "ux-mobile-fix-v20.css"
+      - "ux-mobile-fix-v20.js"
+      - "student-ui-v22.css"
+      - "student-ui-v22.js"
+      - "figurinhas/**"
+      - "audio/**"
+      - "game/**"
+      - ".github/workflows/build-apk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Prepare local web bundle
+        run: |
+          set -e
+          rm -rf android-wrapper/app/src/main/assets/www
+          mkdir -p android-wrapper/app/src/main/assets/www
+          cp index.html style.css layout-cb.css tema-cb.css album-data.js script.js supabase-config.js jornada-cb.js simulados-v13.js ux-mobile-fix-v20.css ux-mobile-fix-v20.js student-ui-v22.css student-ui-v22.js android-wrapper/app/src/main/assets/www/
+          cp -r figurinhas audio game android-wrapper/app/src/main/assets/www/
+          if [ -f logo-escola.png ]; then cp logo-escola.png android-wrapper/app/src/main/assets/www/; fi
+          if [ -f manifest.webmanifest ]; then cp manifest.webmanifest android-wrapper/app/src/main/assets/www/; fi
+      - name: JavaScript syntax audit
+        run: |
+          node --check script.js
+          node --check supabase-config.js
+          node --check album-data.js
+          node --check jornada-cb.js
+          node --check simulados-v13.js
+          node --check ux-mobile-fix-v20.js
+          node --check student-ui-v22.js
+          node --check game/script.js
+          node --check game/game-v13.js
+      - name: Build signed release APK
+        working-directory: android-wrapper
+        run: gradle :app:assembleRelease
+      - name: Locate APK
+        run: |
+          set -e
+          APK=$(find android-wrapper/app/build/outputs/apk/release -name '*.apk' | head -1)
+          test -n "$APK"
+          cp "$APK" projeto-de-vida.apk
+          unzip -t projeto-de-vida.apk >/tmp/unzip.txt && tail -1 /tmp/unzip.txt
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto-de-vida-apk
+          path: projeto-de-vida.apk
+          if-no-files-found: error
+      - name: Publicar APK para download no site
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: app
+          name: App Álbum Projeto de Vida (Android)
+          body: "Aplicativo Android do Álbum Projeto de Vida. Funciona sem internet. Baixe o arquivo projeto-de-vida.apk e instale no celular."
+          files: projeto-de-vida.apk
+          make_latest: true

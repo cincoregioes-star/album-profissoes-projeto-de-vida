@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum Profissões e Projeto de Vida</title>
+  <meta name="description" content="Álbum digital pedagógico para o Ensino Médio sobre profissões, mundo do trabalho e projeto de vida.">
+  <meta name="theme-color" content="#0a0f1f">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="layout-cb.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="tema-cb.css">
+</head>
+<body>
+<div class="app">
+  <header class="topo cb-topo">
+    <div class="brand" role="button" tabindex="0" title="Início" onclick="abrirTela('projeto')">
+      <img class="cb-brand-logo" src="logo-escola.png" alt="">
+      <span class="cb-brand-txt">
+        <span class="selo">Álbum digital</span>
+        <h1>Projeto de Vida</h1>
+        <p>Profissões e futuro no Ensino Médio</p>
+      </span>
+    </div>
+    <div class="cb-status" aria-label="Seu progresso">
+      <span class="cb-chip"><b id="navStatusColadas">0</b>/36 coladas</span>
+      <span class="cb-chip"><b id="navStatusPacotes">0</b> pacotes</span>
+      <span class="cb-chip"><b id="navStatusRepetidas">0</b> repetidas</span>
+    </div>
+    <div class="cb-principal">
+      <button onclick="abrirTela('album')"><span class="cb-ico">📖</span><span>Álbum</span></button>
+      <button class="cb-destaque" onclick="abrirPacote()"><span class="cb-ico">🎁</span><span class="cb-lbl-longo">Abrir pacote</span><span class="cb-lbl-curto">Pacote</span></button>
+      <button onclick="abrirTela('simulados')"><span class="cb-ico">📝</span><span>Simulados</span></button>
+      <button onclick="window.location.href='game/index.html'"><span class="cb-ico">🎮</span><span>Game</span></button>
+      <button id="cbMaisBtn" aria-expanded="false" aria-controls="cbMenu" onclick="cbAlternarMenu()"><span class="cb-ico">☰</span><span>Mais</span></button>
+    </div>
+    <nav id="cbMenu" class="cb-menu" aria-label="Mais opções">
+      <button onclick="abrirTela('projeto')">Sobre o projeto</button>
+      <button id="btnSomAlbum" onclick="alternarSom()">Som: OFF</button>
+      <button class="cb-perigo" onclick="confirmarReinicio()">Reiniciar álbum</button>
+    </nav>
+  </header>
+  <script>
+  function cbAlternarMenu(forcar){
+    const m=document.getElementById('cbMenu'), b=document.getElementById('cbMaisBtn');
+    const abrir = typeof forcar==='boolean' ? forcar : !m.classList.contains('aberto');
+    m.classList.toggle('aberto',abrir); b.setAttribute('aria-expanded',abrir);
+  }
+  if(location.origin.indexOf('appassets.androidplatform.net')>=0) document.documentElement.classList.add('cb-no-app');
+  document.addEventListener('click',e=>{
+    const m=document.getElementById('cbMenu'); if(!m||!m.classList.contains('aberto')) return;
+    if(e.target.closest('#cbMaisBtn')) return;
+    if(e.target.closest('#cbMenu button')||!e.target.closest('#cbMenu')) cbAlternarMenu(false);
+  });
+  </script>
+
+  <main>
+    <section id="tela-projeto" class="tela ativa">
+      <div class="hero cb-hero">
+        <div class="logo-box"><img src="logo-escola.png" alt="Logo da Escola Municipal Horizonte Azul (escola fictícia)"></div>
+        <div class="cb-hero-texto">
+          <h2>Álbum Digital Profissões e Projeto de Vida</h2>
+          <p>Conheça a si mesmo, explore profissões e planeje seu futuro. Responda simulados, jogue, abra pacotes e complete as 36 figurinhas.</p>
+          <div class="cb-progresso" aria-label="Progresso do álbum">
+            <div class="cb-progresso-barra"><span id="cbBarraProgresso"></span></div>
+            <small id="cbTextoProgresso">0 de 36 figurinhas coladas</small>
+          </div>
+          <div class="cb-cta">
+            <button class="cb-btn-principal" onclick="abrirTela('album')">📖 Abrir meu álbum</button>
+            <button class="cb-btn-secundario" onclick="abrirPacote()">🎁 Abrir pacote</button>
+          </div>
+        </div>
+      </div>
+      <h3 class="cb-secao">Como ganhar figurinhas</h3>
+      <div class="cb-atalhos">
+        <button onclick="abrirTela('simulados')"><span>📝</span><b>Simulados</b><small>10 acertos = 1 pacote</small></button>
+        <button onclick="window.location.href='game/index.html'"><span>🎮</span><b>Game</b><small>Cada fase dá prêmios</small></button>
+        <button onclick="document.getElementById('dx13Missoes')?.click()"><span>🎯</span><b>Missões</b><small>Desafios extras</small></button>
+        <button id="cbTileApp" onclick="window.cbAbrirBaixarApp&&window.cbAbrirBaixarApp()"><span>📲</span><b>Baixar o app</b><small>Use sem internet</small></button>
+        <button id="cbTilePesquisa" onclick="document.getElementById('dx13Pesquisa1')?.click()"><span>📊</span><b>Pesquisa 1</b><small>Diagnóstico inicial</small></button>
+      </div>
+      <p class="creditos cb-creditos-rodape">Escola Municipal Horizonte Azul (escola fictícia) • Idealização e desenvolvimento: Prof. Carlos André Tavares de Lima</p>
+    </section>
+
+    <section id="tela-album" class="tela">
+      <div class="painel">
+        <button class="cb-seta" aria-label="Página anterior" onclick="paginaAnterior()">‹</button>
+        <div><b id="tituloPagina">Página</b><span id="textoPagina"></span></div>
+        <button class="cb-seta" aria-label="Próxima página" onclick="proximaPagina()">›</button>
+      </div>
+      <div id="albumPages" class="album-pages"></div>
+    </section>
+
+    <section id="tela-simulados" class="tela">
+      <h2>Simulados e Desafio Final</h2>
+      <p>Responda para ganhar pacotes e completar o álbum.</p>
+      <div id="simuladosArea" class="simulados-area"></div>
+    </section>
+
+    <section id="tela-admin" class="tela">
+      <h2>Painel de Concluintes</h2>
+      <p>Use este painel para conferir os 10 primeiros vencedores.</p>
+      <div class="admin-actions">
+        <button onclick="carregarConcluintes()">Atualizar lista</button>
+        <button onclick="exportarConcluintes()">Exportar CSV</button>
+      </div>
+      <div id="listaConcluintes"></div>
+    </section>
+  </main>
+<aside class="rodape-status">
+    <span>Pacotes: <b id="pacotesQtd">0</b></span>
+    <span>Coladas: <b id="coladasQtd">0</b>/36</span>
+    <span>Repetidas: <b id="repetidasQtd">0</b></span>
+    <button onclick="confirmarReinicio()">Reiniciar álbum</button>
+  </aside>
+</div>
+
+<div id="modal" class="modal oculto">
+  <div class="modal-box">
+    <button class="fechar" onclick="fecharModal()">×</button>
+    <div id="modalConteudo"></div>
+  </div>
+</div>
+
+<script src="album-data.js"></script>
+<script>
+const SUPABASE_URL = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || "";
+const SUPABASE_ANON_KEY = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || "";
+</script>
+<script src="supabase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

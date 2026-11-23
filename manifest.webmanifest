@@ -1,0 +1,14 @@
+{
+  "name":"Álbum Profissões e Projeto de Vida",
+  "short_name":"Projeto de Vida",
+  "description":"Álbum digital pedagógico para o Ensino Médio sobre profissões, mundo do trabalho e projeto de vida.",
+  "start_url":"./index.html",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#0a0f1f",
+  "theme_color":"#0a0f1f",
+  "icons":[
+    {"src":"logo-escola.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"logo-escola.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
